@@ -1,6 +1,6 @@
 {
   "name": "@samirxpikachu/thesys-sdk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A professional Node.js SDK for the Thesys AI Chat API with streaming and history support.",
   "license": "MIT",
   "exports": "./index.ts"
