@@ -1,6 +1,9 @@
 // src/utils/ThesysError.js
 // Custom error class for the Thesys SDK
 
+/**
+ * Custom error class for errors thrown by the Thesys SDK.
+ */
 export class ThesysError extends Error {
   /**
    * @param {string} message - Human-readable error description

@@ -5,17 +5,24 @@ import { DEFAULT_URL, DEFAULT_HEADERS } from "../config/defaults.js";
 import { parseSSEChunk, cleanOutput } from "../utils/parser.js";
 import { ThesysError } from "../utils/ThesysError.js";
 
+/**
+ * Core Thesys API client for interacting with the AI Chat API.
+ */
 export class ThesysClient {
   /** @type {Array<{role: string, content: string}>} */
   #history = [];
 
   /**
-   * @param {object} [options]
-   * @param {string}                              [options.url]     - Override the default API endpoint
-   * @param {Record<string, string>}              [options.headers] - Merge extra headers into every request
+   * Creates a new instance of ThesysClient.
+   *
+   * @param {object} [options] - Configuration options for the client.
+   * @param {string} [options.url] - Override the default API endpoint.
+   * @param {Record<string, string>} [options.headers] - Merge extra headers into every request.
    */
   constructor({ url = DEFAULT_URL, headers = {} } = {}) {
+    /** @type {string} */
     this.url = url;
+    /** @type {Record<string, string>} */
     this.headers = { ...DEFAULT_HEADERS, ...headers };
   }
 
@@ -24,10 +31,10 @@ export class ThesysClient {
   /**
    * Send a message and return the full response string.
    *
-   * @param {string}   message              - User message to send
-   * @param {object}   [options]
-   * @param {Function} [options.onMessage]  - Streaming callback — called with each partial chunk
-   * @returns {Promise<string>}             - The complete assistant reply
+   * @param {string} message - User message to send.
+   * @param {object} [options] - Optional processing parameters.
+   * @param {(chunk: string) => void} [options.onMessage] - Streaming callback called with each partial chunk.
+   * @returns {Promise<string>} The complete assembled assistant reply.
    */
   run = async (message, { onMessage } = {}) => {
     this.#history.push({ role: "user", content: message });
@@ -45,11 +52,11 @@ export class ThesysClient {
   };
 
   /**
-   * Async iterator — yields cleaned text fragments as they arrive.
+   * Async iterator that yields cleaned text fragments as they arrive.
    * Automatically adds the final assembled reply to conversation history.
    *
-   * @param {string} message - User message to send
-   * @yields {string}        - Incremental text fragments
+   * @param {string} message - User message to send.
+   * @returns {AsyncGenerator<string, void, unknown>} Incremental text fragments.
    *
    * @example
    * for await (const fragment of client.stream("Hello!")) {
@@ -72,12 +79,15 @@ export class ThesysClient {
 
   /**
    * Return a copy of the current conversation history.
-   * @returns {Array<{role: string, content: string}>}
+   *
+   * @returns {Array<{role: string, content: string}>} Array of message objects.
    */
   getHistory = () => [...this.#history];
 
   /**
-   * Clear conversation history (start a new session).
+   * Clear conversation history and reset the session.
+   *
+   * @returns {void}
    */
   reset = () => {
     this.#history = [];
