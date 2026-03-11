@@ -8,9 +8,9 @@ Supports streaming, full conversation history, async iterators, and custom confi
 ## Installation
 
 ```bash
-npm install thesys-sdk
+npm install @samirxpikachu/thesys-sdk
 # or reference locally:
-# "thesys-sdk": "file:./thesys-sdk"
+# "@samirxpikachu/thesys-sdk": "file:./thesys-sdk"
 ```
 
 > Requires **Node.js ≥ 18** (native `fetch` + ESM).
@@ -20,9 +20,9 @@ npm install thesys-sdk
 ## Quick Start
 
 ```js
-import { ThesysClient } from "thesys-sdk";
+import * as thesys_sdk from "@samirxpikachu/thesys-sdk";
 
-const client = new ThesysClient();
+const client = new thesys_sdk.ThesysClient();
 const reply = await client.run("What is love?");
 console.log(reply);
 ```
@@ -81,12 +81,12 @@ Clears conversation history and starts a fresh session.
 All errors are thrown as `ThesysError` instances.
 
 ```js
-import { ThesysClient, ThesysError } from "thesys-sdk";
+import * as thesys_sdk from "@samirxpikachu/thesys-sdk";
 
 try {
   await client.run("Hello");
 } catch (err) {
-  if (err instanceof ThesysError) {
+  if (err instanceof thesys_sdk.ThesysError) {
     console.error(err.message, err.code, err.status);
   }
 }
