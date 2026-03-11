@@ -2,15 +2,25 @@
   "name": "thesys-sdk",
   "version": "1.0.0",
   "description": "A professional Node.js SDK for the Thesys AI Chat API with streaming, conversation history, and async iterator support.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "exports": {
-    ".": "./index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   },
   "scripts": {
+    "build": "tsc",
     "example": "node examples/basic.js",
     "example:stream": "node examples/streaming.js",
     "example:history": "node examples/history.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
   },
   "keywords": [
     "thesys",
